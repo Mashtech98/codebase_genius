@@ -1,0 +1,10 @@
+gitpython
+flask
+requests
+networkx
+graphviz
+markdown2
+beautifulsoup4
+radon
+pyyaml
+python-dotenv

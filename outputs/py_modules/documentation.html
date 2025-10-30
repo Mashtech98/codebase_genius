@@ -1,0 +1,108 @@
+<h1>🧠 Codebase Genius Report for <code>py_modules</code></h1>
+
+<h2>📂 Repository Structure</h2>
+
+<p><code>
+{ 'children': [ { 'name': '__pycache__',
+                  'path': 'py_modules/__pycache__',
+                  'type': 'dir'},
+                { 'name': 'api_server.py',
+                  'path': 'py_modules/api_server.py',
+                  'type': 'file'},
+                { 'name': 'ccg_builder.py',
+                  'path': 'py_modules/ccg_builder.py',
+                  'type': 'file'},
+                { 'name': 'diagram.py',
+                  'path': 'py_modules/diagram.py',
+                  'type': 'file'},
+                { 'name': 'docgen.py',
+                  'path': 'py_modules/docgen.py',
+                  'type': 'file'},
+                { 'name': 'file_tree.py',
+                  'path': 'py_modules/file_tree.py',
+                  'type': 'file'},
+                { 'name': 'parser_wrapper.py',
+                  'path': 'py_modules/parser_wrapper.py',
+                  'type': 'file'},
+                { 'name': 'repo_clone.py',
+                  'path': 'py_modules/repo_clone.py',
+                  'type': 'file'}],
+  'name': 'py_modules',
+  'path': 'py_modules',
+  'type': 'dir'}
+</code></p>
+
+<h2>🕸️ Code Context Graph</h2>
+
+<p><img src="outputs/py_modules/ccg_diagram.png" alt="Code Context Graph" /></p>
+
+<h2>🧩 Classes and Functions</h2>
+
+<h3><code>parser_wrapper.py</code></h3>
+
+<ul>
+<li><p><strong>Function</strong> <code>parse_python_file</code></p>
+
+<ul>
+<li>Doc: Parse a Python file using the built-in AST (Abstract Syntax Tree).
+Returns structured info about its functions and classes.</li>
+</ul></li>
+</ul>
+
+<h3><code>diagram.py</code></h3>
+
+<ul>
+<li><p><strong>Function</strong> <code>draw_ccg</code></p>
+
+<ul>
+<li>Doc: Draw a Code Context Graph (CCG) and save it as an image.
+Requires Graphviz installed on the system.</li>
+</ul></li>
+</ul>
+
+<h3><code>ccg_builder.py</code></h3>
+
+<ul>
+<li><p><strong>Function</strong> <code>build_ccg</code></p>
+
+<ul>
+<li>Doc: Build a Code Context Graph (CCG) of functions and classes across all Python files in a repo.
+Nodes = functions/classes
+Edges = inheritance or naive call relationships</li>
+</ul></li>
+</ul>
+
+<h3><code>api_server.py</code></h3>
+
+<h3><code>docgen.py</code></h3>
+
+<ul>
+<li><p><strong>Function</strong> <code>generate_markdown_doc</code></p>
+
+<ul>
+<li>Doc: Generate a Markdown documentation file summarizing:</li>
+</ul></li>
+<li>Repository structure</li>
+<li>Classes and functions</li>
+<li>CCG diagram
+Returns path to the Markdown file.</li>
+</ul>
+
+<h3><code>file_tree.py</code></h3>
+
+<ul>
+<li><p><strong>Function</strong> <code>build_file_tree</code></p>
+
+<ul>
+<li>Doc: Walk through the directory and return a nested dictionary structure
+representing the file tree.</li>
+</ul></li>
+<li><p><strong>Function</strong> <code>find_readme_summary</code></p>
+
+<ul>
+<li>Doc: Find and read the README.md file in the repo (if available)
+and return the first few lines as a summary.</li>
+</ul></li>
+</ul>
+
+<h3><code>repo_clone.py</code></h3>
