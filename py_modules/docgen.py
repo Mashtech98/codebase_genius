@@ -21,6 +21,43 @@ def generate_markdown_doc(repo_path: str, out_dir: str = "outputs") -> str:
 
     md_content = [f"# 🧠 Codebase Genius Report for `{repo_name}`\n"]
 
+    # === Gemini AI Summary Integration ===
+    try:
+        from py_modules.ai_summary_gemini import summarize_codebase
+        print("🤖 Generating AI summary using Gemini...")
+
+        # Collect a preview of the repo's Python files
+        repo_preview = ""
+        for root, _, files in os.walk(repo_path):
+            for file in files:
+                if file.endswith(".py") and len(repo_preview) < 8000:  # read up to ~8 KB
+                    file_path = os.path.join(root, file)
+                    try:
+                        with open(file_path, "r", encoding="utf-8") as f:
+                            snippet = f.read(500)
+                            repo_preview += f"\n\n### File: {file}\n{snippet}"
+                    except Exception as e:
+                        print(f"⚠️ Skipping {file_path}: {e}")
+                        continue
+
+        if not repo_preview.strip():
+            repo_preview = "No Python source code detected in this repository."
+
+        summary_text = summarize_codebase(
+            "You are an AI code analyst. "
+            "Here are excerpts from a Python repository:\n\n"
+            f"{repo_preview}\n\n"
+            "Write a concise summary (3–5 sentences) describing what this repository does, "
+            "who would use it, and its main components."
+        )
+
+        md_content.append("## 🤖 AI Summary (Gemini)\n\n")
+        md_content.append(summary_text + "\n\n---\n")
+
+    except Exception as e:
+        md_content.append(f"⚠️ AI summary could not be generated: {e}\n\n---\n")
+
+
     # Section 1: File tree
     md_content.append("## 📂 Repository Structure\n")
     tree = build_file_tree(repo_path)

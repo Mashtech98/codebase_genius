@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="text-3xl font-bold text-purple-400 mb-6 text-center">📚 Generate Documentation</h1>
+
+  <form method="POST" class="bg-gray-800 p-6 rounded-xl shadow w-1/2 mx-auto">
+    <label class="block mb-2 text-lg">Enter GitHub Repository URL</label>
+    <input name="repo_url" type="text" placeholder="https://github.com/username/repo.git"
+           class="w-full p-3 rounded bg-gray-700 border border-gray-600 mb-4 text-white" required>
+    <button type="submit" class="bg-purple-600 px-6 py-2 rounded hover:bg-purple-700 transition w-full">
+      🚀 Generate Docs
+    </button>
+  </form>
+
+  {% if error %}
+    <p class="text-red-400 mt-4 text-center">{{ error }}</p>
+  {% endif %}
+
+  {% if success %}
+    <div class="mt-8 bg-gray-800 p-6 rounded-xl w-3/4 mx-auto">
+      <h2 class="text-xl font-bold mb-2 text-green-400">✅ Documentation Generated!</h2>
+      <p>Repository: <span class="text-green-400">{{ repo_url }}</span></p>
+      <p>Markdown Path: {{ markdown_path }}</p>
+      <h3 class="text-lg mt-4 text-purple-300">🤖 AI Summary:</h3>
+      <p class="bg-gray-700 p-4 rounded">{{ summary }}</p>
+    </div>
+  {% endif %}
+{% endblock %}
