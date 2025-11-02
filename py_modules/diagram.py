@@ -1,28 +1,29 @@
 # py_modules/diagram.py
 import os
-import networkx as nx
-from networkx.drawing.nx_agraph import to_agraph
+from graphviz import Digraph
 
 def draw_ccg(G, out_dir: str, out_name="ccg", fmt="png"):
     """
-    Draw a Code Context Graph (CCG) and save it as an image.
-    Requires Graphviz installed on the system.
+    Draw a Code Context Graph (CCG) and save it as an image using Graphviz.
+    Works without requiring pygraphviz — Streamlit and cloud safe.
     """
-    if not os.path.exists(out_dir):
-        os.makedirs(out_dir, exist_ok=True)
+    os.makedirs(out_dir, exist_ok=True)
 
-    # Convert to Graphviz AGraph
-    A = to_agraph(G)
+    graph = Digraph(format=fmt)
+    graph.attr(rankdir="LR", splines="spline")
 
-    # Simplify node labels (remove long file paths)
+    # Add nodes
     for node in G.nodes:
-        n = A.get_node(node)
         label = node.split("::")[-1]
-        n.attr['label'] = label
+        graph.node(node, label=label, shape="box", style="rounded,filled", fillcolor="lightgrey")
 
-    # Render and save
-    output_path = os.path.join(out_dir, f"{out_name}.{fmt}")
-    A.layout('dot')  # use the DOT layout engine (hierarchical)
-    A.draw(output_path)
+    # Add edges
+    for u, v, data in G.edges(data=True):
+        relation = data.get("relation", "")
+        graph.edge(u, v, label=relation)
 
-    return output_path
+    # Save file
+    output_path = os.path.join(out_dir, out_name)
+    graph.render(output_path, cleanup=True)
+
+    return f"{output_path}.{fmt}"
