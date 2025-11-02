@@ -1,10 +1,15 @@
-gitpython
 flask
 requests
 networkx
 graphviz
+pygraphviz
+markdown
 markdown2
 beautifulsoup4
 radon
 pyyaml
 python-dotenv
+gitpython
+google-generativeai
+streamlit
+
